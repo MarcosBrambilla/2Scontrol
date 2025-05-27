@@ -1,0 +1,57 @@
+networks:
+  minha_rede:  # Definição da rede
+    driver: bridge
+
+#volumes:
+#  postgres_data:  
+
+services:
+  node:
+    image: "node:12.22.9"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend/:/home/node/app
+    ports:
+      - "3000:3000"
+    command: npx nodemon ./src/app.js
+    networks:
+      - minha_rede
+
+  db:
+    image: "postgres:17.4"
+    user: "postgres"
+    container_name: "db-dev"
+    env_file: 
+      - ./.env
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    ports:
+      - "${PG_PORT}:${PG_PORT}"
+#    volumes:
+#      - "./postgres_data:/var/lib/postgresql/data"
+    networks:
+      - minha_rede
+
+  pg_admin:
+    container_name: "pgadmin-prod"
+#    volumes:
+#      - ./pgadmin:/var/lib/pgadmin
+    image: "dpage/pgadmin4:latest"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: test123
+      PGADMIN_LISTEN_PORT: 5050
+    ports:
+      - "5050:5050"
+    networks:
+      - minha_rede
+  
+
+
+    

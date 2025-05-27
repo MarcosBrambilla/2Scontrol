@@ -2,41 +2,39 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import corsOptions from './middlewares/cors.js';
-import sequelize from './config/database.js';
-import authRoutes from './routes/authRoutes.js';
-import productRoutes from './routes/productRoutes.js';
-import supplierRoutes from './routes/supplierRoutes.js';
+import { sequelize, syncDB } from './config/database.js';
+import { authRoutes, productsRoutes, suppliersRoutes } from './routes/index.js';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({path: '../.env'});
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PG_PORT || 3000;
 
+//midlewares
 app.use(cors(corsOptions.origin));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/suppliers', supplierRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/suppliers', suppliersRoutes);
 
+const startServer = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has to the database been established.');
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+        await syncDB();
+        console.log('Database has been successfully sincronized.');
 
-sequelize.sync({ alter: true }) 
-    .then(() => {
-        console.log('Database synchronized successfully.');
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });
-    })
-    .catch(err => {
-        console.error(`Unable to synchronize the database ${process.env.PG_SERVER} with port: ${process.env.PG_PORT} :`, err);
-    });
+    } catch (error) {
+        console.error('Unable to connect to the database and start server:', error);
+    }
+};
 
+startServer();
 
