@@ -2,13 +2,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import corsOptions from './middlewares/cors.js';
-import { sequelize, syncDB } from './config/database.js';
+import syncDB from './config/syncdb.js';
+import sequelize from './config/database.js';
 import { authRoutes, productsRoutes, suppliersRoutes } from './routes/index.js';
 import dotenv from 'dotenv';
 dotenv.config({path: '../.env'});
 
 const app = express();
-const PORT = process.env.PG_PORT || 3000;
+const PORT = 3000;
 
 //midlewares
 app.use(cors(corsOptions.origin));
