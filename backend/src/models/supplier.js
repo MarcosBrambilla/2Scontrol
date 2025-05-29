@@ -1,7 +1,7 @@
 import sequelize from '../config/database.js';
 import { DataTypes } from 'sequelize';
 
-const Supplier = sequelize.define('Supplier', {
+const supplier = sequelize.define('supplier', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

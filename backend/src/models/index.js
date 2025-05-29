@@ -1,6 +1,6 @@
-import Product from'./product.js';
-import Supplier from'./supplier.js'; 
-import User from'./user.js'; 
+import product from'./product.js';
+import supplier from'./supplier.js'; 
+import user from'./user.js'; 
 
-const models = {Product, Supplier, User}
+const models = {product, supplier, user}
 export default models;
