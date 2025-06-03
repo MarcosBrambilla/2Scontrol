@@ -17,4 +17,4 @@ const supplier = sequelize.define('supplier', {
     }
 }, { timestamps: true });
 
-export default Supplier;
+export default supplier;
