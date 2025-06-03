@@ -11,16 +11,24 @@ const product = sequelize.define('product', {
         type: DataTypes.STRING(100),
         allowNull: false
     },
-    brand: {
-        type: DataTypes.STRING(50),
-        allowNull: false
-    },
     image: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    stock_quantity: {
+    current_quantity: {
         type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    minimal_stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    send_alert: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    product_value: {
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     cost: {
