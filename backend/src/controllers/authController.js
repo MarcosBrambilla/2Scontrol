@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Op } from 'sequelize';
 
 const register = async (req, res) => {
     const { email, full_name, login, password } = req.body;
@@ -9,6 +10,19 @@ const register = async (req, res) => {
         if (!email || !full_name || !login || !password) {
             return res.status(400).json({ message: 'Todos os campos são obrigatórios!' });
         }
+        // Check if the user already exists
+        const existingUser = await User.findOne({
+             where: {
+                [Op.or]: [
+                    { email: email },
+                    { login: login }
+                ]
+            } 
+        });
+        if (existingUser) {
+            return res.status(409).json({ message: 'Usuário já existe com este email ou Usuário.' });
+        }
+        
         // unhash password
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({ email, full_name, login, password: hashedPassword});

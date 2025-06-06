@@ -3,6 +3,8 @@ import authService from "./services/authServices";
 import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
 import Home from "./pages/Home.tsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/style.css';
 
 const ProtectedRoute = ({ children }) => {
   const currentUser = authService.getCurrentUser();
@@ -29,8 +31,7 @@ function App() {
             }
           />
 
-          {/* Opcional: Rota para 404 - Página Não Encontrada */}
-          <Route path="*" element={<h2>404 - Página Não Encontrada</h2>} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

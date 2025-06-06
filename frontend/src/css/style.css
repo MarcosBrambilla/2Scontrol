@@ -1,37 +1,47 @@
-/* Estilos gerais para o corpo da página e centralização */
+:root {
+    --primary-color: #007bff; 
+    --secondary-color: #6c757d;
+    --background-color: #f0f2f5; 
+    --text-color: #333; 
+    --hover-color: #0056b3; 
+}
+
+
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5; /* Um cinza claro para o fundo */
+    background-color: var(--background-color); 
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Garante que a página ocupe a altura total da viewport */
+    min-height: 100vh; 
     color: #333;
 }
 
-/* Estilos para o container principal de login */
+/*
+Estilos para a página de login e registro 
+*/
 .login {
-    background-color: #fff;
+    background-color: var(--background-color);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
     text-align: center;
     width: 100%;
-    max-width: 450px; /* Largura máxima para o formulário */
-    box-sizing: border-box; /* Inclui padding e borda na largura */
+    max-width: 450px; 
+    box-sizing: border-box; 
 }
 
 /* Título da página de login */
 .login h1 {
-    color: #007bff; /* Azul vibrante */
+    color: var(--primary-color); 
     margin-bottom: 20px;
     font-size: 2.2em;
 }
 
 /* Parágrafo de descrição */
 .login p {
-    color: #555;
+    color: var(--secondary-color); 
     margin-bottom: 30px;
     font-size: 1.1em;
     line-height: 1.6;
@@ -53,32 +63,30 @@ body {
     display: block; /* Cada label em uma nova linha */
     margin-bottom: 8px;
     font-weight: bold;
-    color: #444;
+    color: var(--text-color);
     font-size: 1em;
 }
 
-.formLogin input[type="text"],
-.formLogin input[type="password"] {
+.formLogin input{
     width: 100%;
     padding: 14px 15px;
-    border: 1px solid #ddd; /* Borda mais suave */
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1em;
-    box-sizing: border-box; /* Inclui padding e borda na largura */
+    box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.formLogin input[type="text"]:focus,
-.formLogin input[type="password"]:focus {
-    border-color: #007bff; /* Borda azul ao focar */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra suave ao focar */
-    outline: none; /* Remove o outline padrão do navegador */
+.formLogin input:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); 
+    outline: none; 
 }
 
-/* Estilos para o botão de login */
+/* Estilos para os botões */
 .formLogin button {
-    background-color: #007bff; /* Azul vibrante */
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--background-color); 
     padding: 15px 25px;
     border: none;
     border-radius: 8px;
@@ -86,13 +94,13 @@ body {
     font-size: 1.1em;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%; /* Ocupa a largura total */
-    margin-top: 10px; /* Espaço acima do botão */
+    width: 100%;
+    margin-top: 10px;
 }
 
 .formLogin button:hover {
-    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
-    transform: translateY(-2px); /* Pequeno efeito de elevação */
+    background-color: var(--hover-color);
+    transform: translateY(-2px); 
 }
 
 .formLogin button:active {
@@ -122,3 +130,15 @@ body {
     }
 }
 
+/* Estilos para image logo de login */
+.logoLogin {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    display: block; /* Garante que a imagem seja exibida como bloco */
+    margin-left: auto;
+    margin-right: auto; /* Centraliza a imagem horizontalmente */
+    border-radius: 50%; /* Torna a imagem circular */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+    transition: transform 0.3s ease; /* Transição suave para o efeito de hover */
+}
