@@ -6,13 +6,14 @@ import syncDB from './config/syncdb.js';
 import sequelize from './config/database.js';
 import { authRoutes, productsRoutes, suppliersRoutes } from './routes/index.js';
 import dotenv from 'dotenv';
+
 dotenv.config({path: '../.env'});
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 //midlewares
-app.use(cors(corsOptions.origin));
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,7 +34,7 @@ const startServer = async () => {
             console.log(`Server is running on port ${PORT}`);
         });
     } catch (error) {
-        console.error('Unable to connect to the database and start server:', error);
+        console.error('Unable to connect to the database and start server:', error.original);
     }
 };
 

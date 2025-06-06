@@ -1,0 +1,124 @@
+/* Estilos gerais para o corpo da página e centralização */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5; /* Um cinza claro para o fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Garante que a página ocupe a altura total da viewport */
+    color: #333;
+}
+
+/* Estilos para o container principal de login */
+.login {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    text-align: center;
+    width: 100%;
+    max-width: 450px; /* Largura máxima para o formulário */
+    box-sizing: border-box; /* Inclui padding e borda na largura */
+}
+
+/* Título da página de login */
+.login h1 {
+    color: #007bff; /* Azul vibrante */
+    margin-bottom: 20px;
+    font-size: 2.2em;
+}
+
+/* Parágrafo de descrição */
+.login p {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Estilos para o formulário */
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento entre os campos do formulário */
+}
+
+/* Estilos para cada grupo de label e input */
+.formLogin div {
+    text-align: left;
+}
+
+.formLogin label {
+    display: block; /* Cada label em uma nova linha */
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+    font-size: 1em;
+}
+
+.formLogin input[type="text"],
+.formLogin input[type="password"] {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1px solid #ddd; /* Borda mais suave */
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Inclui padding e borda na largura */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formLogin input[type="text"]:focus,
+.formLogin input[type="password"]:focus {
+    border-color: #007bff; /* Borda azul ao focar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Sombra suave ao focar */
+    outline: none; /* Remove o outline padrão do navegador */
+}
+
+/* Estilos para o botão de login */
+.formLogin button {
+    background-color: #007bff; /* Azul vibrante */
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Ocupa a largura total */
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+.formLogin button:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+    transform: translateY(-2px); /* Pequeno efeito de elevação */
+}
+
+.formLogin button:active {
+    transform: translateY(0); /* Retorna à posição original ao clicar */
+}
+
+/* Responsividade básica para telas menores */
+@media (max-width: 600px) {
+    .login {
+        padding: 30px 20px;
+        margin: 20px; /* Adiciona margem em telas menores para não colar nas bordas */
+    }
+
+    .login h1 {
+        font-size: 1.8em;
+    }
+
+    .login p {
+        font-size: 1em;
+    }
+
+    .formLogin input[type="text"],
+    .formLogin input[type="password"],
+    .formLogin button {
+        padding: 12px 15px;
+        font-size: 0.95em;
+    }
+}
+
