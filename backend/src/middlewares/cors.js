@@ -1,4 +1,4 @@
-const whitelist = ['http://localhost:3000', 'http://127.0.0.1:3000'];
+const whitelist = ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000'];
 
 
 //Disable for tests, have to enable it later!! Very Important

@@ -10,8 +10,14 @@ function Home() {
     authService.logout();
     window.location.reload();
   };
+
+  if (!currentUser) {
+    navigate('/login');
+    return null; // Prevent rendering the rest of the component
+  }
+  
+
   return (
-    
     <div className="Body">
       <h1>Bem-vindo ao 2Scontrol</h1>
       {currentUser ? (
@@ -20,7 +26,7 @@ function Home() {
           <button onClick={handleLogout}>Sair</button>
         </div>
        ) : (
-        <p>Você não está logado. {setTimeout(() => {navigate('/login')}, 2000)}</p>
+        <p>Você não está logado.</p>
       )}
       <p>Adicionar mais rotas abaixo</p>
 

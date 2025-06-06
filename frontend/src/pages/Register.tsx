@@ -8,6 +8,7 @@ function Register() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [isLoading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     // Regex para validação de e-mail.
@@ -20,31 +21,35 @@ function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
         setMessage('');
+        setLoading(true);
         // Validação de e-mail
         if (!validateEmail(email)) {
             setMessage('Por favor, insira um e-mail válido.');
+            setLoading(false);
             return;
         }
 
         try {
-            const response = await authService.register( full_name, login, password );
-            setMessage(response.data.message || 'Login realizado com sucesso!');
+            await authService.register( email, full_name, login, password );
+            setMessage('Cadastro realizado com sucesso!');
             setTimeout(() => {
                 navigate('/login');
             }
             , 2000);
         } catch (error) {
-            const errorMsg = error?.response?.data?.message || error.message || 'Erro ao realizar o registro.';
+            const errorMsg = error.error || error.message || 'Erro ao realizar o registro.';
             setMessage(errorMsg);
-        }
+            setLoading(false);
+        } 
     };
 
     return (
-        <div className="register">
+        <div>
+            <img className='logoLogin'
+            src="./Images/Logo2Scontrol.png" alt="Logo do Sistema" />
             <h1>Realize o Registro no sistema</h1>
             <p>Por favor, preencha os campos abaixo para realizar o registro.</p>
-            {message && <p className="message">{message}</p>}
-            <form onSubmit={handleRegister} className="formRegister">
+            <form onSubmit={handleRegister} className="formLogin">
                 <div>
                     <label htmlFor="full_name">Nome Completo:</label>
                     <input type="text" id="full_name" name="full_name" value={full_name} onChange={(e) => setFullName(e.target.value)} required />
@@ -64,8 +69,10 @@ function Register() {
                 <div>
                     <a href="/login">Já possui conta?</a>
                 </div>
-                <button type="submit">Registrar</button>
+                <button type="submit" disabled={isLoading}>{isLoading ? 'Carregando...' : 'Registrar'}</button>
             </form>
+            {message && (<div role="alert" className={message.includes('sucesso') ? 'alert alert-success' : 'alert alert-danger'}> {message} </div>
+            )}
         </div>
     );
 
