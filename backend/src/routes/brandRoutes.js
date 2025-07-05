@@ -1,14 +1,14 @@
 import express from 'express';
-import productController from '../controllers/productController.js';
+import brandController from '../controllers/brandControllers.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', authMiddleware, productController.addProduct);
-router.get('/', authMiddleware, productController.getAllProducts);
-router.get('/:id', authMiddleware, productController.getProductById);
-router.put('/:id', authMiddleware, productController.updateProduct);
-router.delete('/:id', authMiddleware, productController.deleteProduct);
+router.post('/', authMiddleware, brandController.addBrand);
+router.get('/', authMiddleware, brandController.getAllBrands);
+router.get('/:id', authMiddleware, brandController.getBrandById);
+router.put('/:id', authMiddleware, brandController.updateBrand);
+router.delete('/:id', authMiddleware, brandController.deleteBrand);
 
-const productsRoutes = router;
-export default productsRoutes;
+const BrandsRoutes = router;
+export default BrandsRoutes;

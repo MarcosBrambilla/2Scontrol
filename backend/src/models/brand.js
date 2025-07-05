@@ -1,6 +1,5 @@
 import sequelize from '../config/database.js';
 import { DataTypes } from 'sequelize';
-import product from './product.js';
 
 const brand = sequelize.define('brand', {
     id: {
@@ -17,10 +16,5 @@ const brand = sequelize.define('brand', {
         allowNull: false
     }
 }, { timestamps: true });
-
-brand.hasMany(product, {
-    foreignKey: 'brand_id',
-    as: 'products'
-});
 
 export default brand;

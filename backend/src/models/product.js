@@ -1,6 +1,5 @@
 import sequelize from '../config/database.js';
 import { DataTypes } from 'sequelize';
-import brand from './brand.js';
 
 const product = sequelize.define('product', {
     id: {
@@ -31,14 +30,27 @@ const product = sequelize.define('product', {
     product_value: {
         type: DataTypes.FLOAT,
         allowNull: false
-    }
-}, {
-    timestamps: true
-});
-  
-product.belongsTo(brand, {
-    foreignKey: 'brand_id',
-    as: 'brand'
-});
+    },
+    description: {
+        type: DataTypes.STRING(255),
+        allowNull: true
+    },
+    brand_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'brands',
+            key: 'id'
+        }
+    }, 
+    entity_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'entities',
+            key: 'id'
+        }
+    },
+}, { timestamps: true });
 
 export default product;

@@ -2,12 +2,11 @@ import Brand from '../models/brand.js';
 
 const addBrand = async (req, res) => {
     try {
-        const { name, description, products_id } = req.body;
+        const { name, description } = req.body;
         const newBrand = await Brand.create({
             name,
             description,
             imagem,
-            products_id
         });
         res.status(201).json(newBrand);
     } catch (error) {
@@ -22,7 +21,7 @@ const updateBrand = async (req, res) => {
             where: { id: id }
         });
         if (updated) {
-            const updatedBrand = await Brand.findOne({ where: { id_produto: id } });
+            const updatedBrand = await Brand.findOne({ where: { id: id } });
             res.status(200).json(updatedBrand);
         } else {
             res.status(404).json({ message: 'Marca não encontrada! ' });
@@ -67,7 +66,7 @@ const getBrandById = async (req, res) => {
             res.status(404).json({ message: 'Marca não encontrada! ' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving product', error });
+        res.status(500).json({ message: 'Erro ao trazer marca!', error });
     }
 };
 

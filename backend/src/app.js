@@ -4,7 +4,7 @@ import cors from 'cors';
 import corsOptions from './middlewares/cors.js';
 import syncDB from './config/syncdb.js';
 import sequelize from './config/database.js';
-import { authRoutes, productsRoutes, suppliersRoutes } from './routes/index.js';
+import { authRoutes, productsRoutes, suppliersRoutes, brandRoutes } from './routes/index.js';
 import dotenv from 'dotenv';
 
 dotenv.config({path: '../.env'});
@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/suppliers', suppliersRoutes);
+app.use('/api/brands', brandRoutes);
 
 const startServer = async () => {
     try {
