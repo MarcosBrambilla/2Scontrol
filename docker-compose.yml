@@ -35,7 +35,7 @@ services:
     ports:
       - "${PG_PORT}:${PG_PORT}"
     volumes:
-      - "db-dev:/var/lib/postgresql/data"
+      - db-dev:/var/lib/postgresql/data
     networks:
       - minha_rede
 

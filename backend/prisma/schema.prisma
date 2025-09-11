@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SequelizeMeta {
+  name String @id @db.VarChar(255)
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(255)
+  full_name String   @db.VarChar(255)
+  login     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+
+   @@map("Users")
+}
+
+model brands {
+  id          Int        @id @default(autoincrement())
+  name        String     @db.VarChar(100)
+  description String     @db.VarChar(255)
+  createdAt   DateTime   @db.Timestamptz(6)
+  updatedAt   DateTime   @db.Timestamptz(6)
+  products    products[]
+}
+
+model entities {
+  id                                                  Int               @id @default(autoincrement())
+  name                                                String            @db.VarChar(120)
+  contactInfo                                         String            @db.VarChar(255)
+  createdAt                                           DateTime          @db.Timestamptz(6)
+  updatedAt                                           DateTime          @db.Timestamptz(6)
+  entity_id                                           Int?
+  stock_movements_entities_entity_idTostock_movements stock_movements?  @relation("entities_entity_idTostock_movements", fields: [entity_id], references: [id])
+  products                                            products[]
+  stock_movements_stock_movements_entity_idToentities stock_movements[] @relation("stock_movements_entity_idToentities")
+}
+
+model products {
+  id               Int               @id @default(autoincrement())
+  name             String            @db.VarChar(100)
+  image            String?           @db.VarChar(255)
+  current_quantity Int
+  minimal_stock    Int
+  send_alert       Boolean
+  product_value    Float
+  description      String?           @db.VarChar(255)
+  brand_id         Int
+  createdAt        DateTime          @db.Timestamptz(6)
+  updatedAt        DateTime          @db.Timestamptz(6)
+  entity_id        Int
+  brands           brands            @relation(fields: [brand_id], references: [id], onDelete: NoAction)
+  entities         entities          @relation(fields: [entity_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  stock_movements  stock_movements[]
+}
+
+model stock_movements {
+  id                                           Int                       @id @default(autoincrement())
+  type                                         enum_stock_movements_type
+  quantity                                     Int
+  description                                  String?                   @db.VarChar(255)
+  product_id                                   Int
+  supplier_id                                  Int?
+  createdAt                                    DateTime                  @db.Timestamptz(6)
+  updatedAt                                    DateTime                  @db.Timestamptz(6)
+  entity_id                                    Int
+  entities_entities_entity_idTostock_movements entities[]                @relation("entities_entity_idTostock_movements")
+  entities_stock_movements_entity_idToentities entities                  @relation("stock_movements_entity_idToentities", fields: [entity_id], references: [id], onDelete: NoAction)
+  products                                     products                  @relation(fields: [product_id], references: [id], onDelete: NoAction)
+  suppliers                                    suppliers?                @relation(fields: [supplier_id], references: [id])
+}
+
+model suppliers {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  contactInfo     String            @db.VarChar(255)
+  createdAt       DateTime          @db.Timestamptz(6)
+  updatedAt       DateTime          @db.Timestamptz(6)
+  stock_movements stock_movements[]
+}
+
+enum enum_stock_movements_type {
+  entry
+  output
+}
